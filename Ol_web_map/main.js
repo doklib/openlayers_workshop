@@ -23,7 +23,7 @@ function init(){
     })
 
     const vWorld = new ol.layer.Tile({
-        source: new ol.source.OSM({
+        source: new ol.source.XYZ({
             url: 'http://xdworld.vworld.kr:8080/2d/Base/201802/{z}/{x}/{y}.png'
         }),
         visible: true,
@@ -63,13 +63,45 @@ function init(){
     }
 
     // Vector Layers
-    const SeoulArea = new ol.layer.VectorImage({
+    const fillStyle = new ol.style.Fill({
+        color: [84, 118, 255, 1]
+    })
+
+    const strokeStyle = new ol.style.Stroke({
+        color: [45, 46, 45, 1],
+        width: 1.2
+    })
+    const circleStyle = new ol.style.Circle({
+        fill: new ol.style.Fill({
+            color: [255, 24, 5, 1]
+        }),
+        radius: 7,
+        stroke: strokeStyle
+    })
+
+
+    const SeoulAreaGeoJSON = new ol.layer.VectorImage({
         source: new ol.source.Vector({
             url: './data/vector_data/area.geojson',
             format: new ol.format.GeoJSON()
         }),
         visibile: true,
-        title: 'SeoulAreaGeoJSON'
+        title: 'SeoulAreaGeoJSON',
+        style: new ol.style.Style({
+            fill: fillStyle,
+            stroke: strokeStyle,
+            image: circleStyle
+        })
     })
-    map.addLayer(SeoulArea);
+    map.addLayer(SeoulAreaGeoJSON);
+
+    // Vector Feature Popup Logic
+    map.on('click', function(e){
+      //  console.log(e);
+        map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
+            let clickedFeatureName = feature.get('name');
+            let clickedFeatureAdditionInfo = feature.get('additionalInfo');
+            console.log(clickedFeatureName,clickedFeatureAdditionInfo);
+        })
+    })
 }
