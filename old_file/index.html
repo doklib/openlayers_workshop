@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/css/ol.css" type="text/css">
+        <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-1">
+            <div class="sidebar">
+                <h2>Base Layers</h2>
+                <input type="radio" name='baseLayerRadioButton' value='OSMStandard' >OSM Standard<br>
+                <input type="radio" name='baseLayerRadioButton' value='vWorld' checked>V World<br>
+                <input type="radio" name='baseLayerRadioButton' value='StamenTerrain'>StamenTerrain<br>
+            </div>
+        </div>
+        <div class="grid-2">
+            <div id="js-map" class='map'></div>
+        </div>
+    </div>
+    <script src='https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/build/ol.js'></script>
+    <script src='./main.js'></script>
+    
+</body>
+</html>

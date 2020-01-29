@@ -13,6 +13,11 @@
     <script src="https://cdn.maptiler.com/ol-mapbox-style/v4.3.1/olms.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
  	<script src='./map.js'></script>
+ 	<!-- jQuery -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+ 	<!-- ol-ext -->
+	<link rel="stylesheet" href="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.css" />
+	<script type="text/javascript" src="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.js"></script>
 
  	
     <title>Map</title>
@@ -35,17 +40,45 @@
         <input type="radio" name='baseLayerRadioButton' value='StamenTerrainWithLabels'>Stamen Terrain With Labels<br>-->        
         
         <h2>Layers</h2>
-        <input type="checkbox" name='rasterLayerCheckbox' value='TileArcGISLayer'>Tile ArcGIS Layer<br>
-        <input type="checkbox" name='rasterLayerCheckbox' value='NOAAWMSLayer'>NOAA WMS Layer<br>
-        <input type="checkbox" name='rasterLayerCheckbox' value='TileDebugLayer'>Tile Debug Layer<br>
-        <input type="checkbox" name='rasterLayerCheckbox' value='SeoulAreaGeoJSON' checked>Seoul GeoJSON<br>
-        <input type="checkbox" name='rasterLayerCheckbox' value='GeoserverWMSSource' checked>Geoserver WMS Layer<br>
-        <input type="checkbox" name='rasterLayerCheckbox' value='openstreetMapFragmentStatic'>OpenstreetMap Humanitarian Fragment Static<br>
-        <input type="checkbox" name='rasterLayerCheckbox' value='CentralEUCountriesGeoJSON'>Central EU Countries GeoJSON<br>
-        <!-- <input type="checkbox" name='rasterLayerCheckbox' value='CentralEUCountriesKML'>Central EU Countries KML<br> -->
-        <input type="checkbox" name='rasterLayerCheckbox' value='OnlineFBUsers'>HeatMap Online FB Users<br>
+        <input type="checkbox" name='LayerCheckbox' value='TileArcGISLayer'>Tile ArcGIS Layer<br>
+        <input type="checkbox" name='LayerCheckbox' value='NOAAWMSLayer'>NOAA WMS Layer<br>
+        <input type="checkbox" name='LayerCheckbox' value='TileDebugLayer'>Tile Debug Layer<br>
+        <input type="checkbox" name='LayerCheckbox' value='SeoulAreaGeoJSON' checked>Seoul GeoJSON<br>
+        <input type="checkbox" name='LayerCheckbox' value='GeoserverWMSSource' checked>Geoserver WMS Layer<br>
+        <input type="checkbox" name='LayerCheckbox' value='openstreetMapFragmentStatic'>OpenstreetMap Humanitarian Fragment Static<br>
+        <input type="checkbox" name='LayerCheckbox' value='CentralEUCountriesGeoJSON'>Central EU Countries GeoJSON<br>
+        <!-- <input type="checkbox" name='LayerCheckbox' value='CentralEUCountriesKML'>Central EU Countries KML<br> -->
+        <input type="checkbox" name='LayerCheckbox' value='OnlineFBUsers'>HeatMap Online FB Users
+  	  <form class="form-inline">
+      <h2>거리측정 &nbsp;</h2>
+      <select id="type">
+        <option value="LineString">Length (LineString)</option>
+        <option value="Polygon">Area (Polygon)</option>
+        <option value="None">None</option>
+      </select>
+    </form>
   	  <h2>Info</h2>
-  	  <div id="info">&nbsp;</div>
+  	  <div id="info">지도레이어클릭</div>
+  	  <div class="options" >
+		<ul><li>
+			Screen ppi: <input id="ppi" type="number" onchange="ctrl.set('ppi',this.value); ctrl.setScale()" value='96' />
+		</li><li>
+      or your screen diagonal:
+      <select onchange="setDiagonal(this.value);">
+        <option value=0>Diagonal</option>
+        <option value=7>7"</option>
+        <option value=11.6>11.6"</option>
+        <option value=13.3>13.3"</option>
+        <option value=14>14"</option>
+        <option value=15.6>15.6"</option>
+        <option value=17.3>17.3"</option>
+        <option value=21>21"</option>
+        <option value=24>24"</option>
+        <option value=27>27"</option>
+      </select>
+    </li></ul>
+	</div>
+  	  
   	  </div>
     </div>
     <div class="grid-2">

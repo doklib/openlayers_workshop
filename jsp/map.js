@@ -21,10 +21,11 @@ function init(){
  // 브이월드
   const vworldMap = new ol.layer.Tile({
 	  source: new ol.source.XYZ({
-		  url: 'http://xdworld.vworld.kr:8080/2d/Base/201802/{z}/{x}/{y}.png'
+		  url: 'http://xdworld.vworld.kr:8080/2d/Base/201802/{z}/{x}/{y}.png',
+		    attributions: '© <a href="http://dev.vworld.kr">vworld</a>'
 	  }),
     visible: true,
-    title: 'Vworld'        
+    title: 'Vworld'
   })
   // Openstreet Map Standard
   const openstreetMapStandard = new ol.layer.Tile({
@@ -141,77 +142,77 @@ function init(){
   })  
 
   // GEOSERVER Vector WFS Layer
-//  var GeoserverWFSSource = new ol.layer.Vector({
-//	  source: new ol.source.Vector({
-//		  
-//		 format : new ol.format.GeoJSON(),
-//	     url: function(extent){
-//	    return 'http://localhost:8080/geoserver/tutorial/wfs?service=WFS&'+
-//	    'version=1.1.0&'+
-//         'request=GetFeature&'+
-//         'typename=tutorial:AF01_BeaconOut&' +
-//         'outputFormat=application/json&'+
-//         'srsname=EPSG:5186&'+
-//         'bbox=' + extent.join(',') + ',EPSG:5186';
-//         },
-//         strategy: ol.loadingstrategy.bboxStrategy,
-////	     params: {
-////	    	 	//service : 'WFS',
-////				VERSION : '1.1.0',
-////				request : 'GetFeature',
-////				typeNames : 'tutorial:AF01_BeaconOut',
-////				outputFormat: 'application/json',
-////				//LAYERS : 'tutorial:AF01_BeaconOut',
-////				//WIDTH : 478,
-////				//HEIGHT : 768,
-////				//STYLES : 'population_density',
-////				SRS : 'EPSG:5186'
-////				//,ILED : true
-////				//,cql_filter : 'major>=21110;BEYOND(geom,point(37.576503 126.980450),587580,meters);include'
-////					//'major=21110 OR major>21111 OR major=1;type>15;type=1'   //'major>21110'//  'type=1''major>21110''type=4'
-////				
-////			},
-//         
-////			serverType : 'geoserver',
-////			crossOrigin: 'anonymous'
-//	  	}),
-//		    visible: true,
-//		    title: 'GeoserverWFSSource'
-//	})
+ /* var GeoserverWFSSource = new ol.layer.Vector({
+	  source: new ol.source.Vector({
+		  
+		 format : new ol.format.GeoJSON(),
+	     url: function(extent){
+	    return 'http://localhost:8080/geoserver/tutorial/wfs?service=WFS&'+
+	    'version=1.1.0&'+
+         'request=GetFeature&'+
+         'typename=tutorial:AF01_BeaconOut&' +
+         'outputFormat=application/json&'+
+         'srsname=EPSG:5186&'+
+         'bbox=' + extent.join(',') + ',EPSG:5186';
+         },
+         strategy: ol.loadingstrategy.bboxStrategy,
+//	     params: {
+//	    	 	//service : 'WFS',
+//				VERSION : '1.1.0',
+//				request : 'GetFeature',
+//				typeNames : 'tutorial:AF01_BeaconOut',
+//				outputFormat: 'application/json',
+//				//LAYERS : 'tutorial:AF01_BeaconOut',
+//				//WIDTH : 478,
+//				//HEIGHT : 768,
+//				//STYLES : 'population_density',
+//				SRS : 'EPSG:5186'
+//				//,ILED : true
+//				//,cql_filter : 'major>=21110;BEYOND(geom,point(37.576503 126.980450),587580,meters);include'
+//					//'major=21110 OR major>21111 OR major=1;type>15;type=1'   //'major>21110'//  'type=1''major>21110''type=4'
+//				
+//			},
+         
+//			serverType : 'geoserver',
+//			crossOrigin: 'anonymous'
+	  	}),
+		    visible: true,
+		    title: 'GeoserverWFSSource'
+	})*/
   
-//  var GeoserverWFSSource = new ol.layer.Vector({
-//    source: GeoserverWFSSource,
-//    style: new ol.style.Style({
-//      stroke: new ol.style.Stroke({
-//        color: 'rgba(0, 0, 255, 1.0)',
-//        width: 2
-//      })
-//    })
-//  });
-////generate a GetFeature request
-//  var featureRequest = new ol.format.WFS().writeGetFeature({
-//    srsName: 'EPSG:5186',
-//    featureNS: 'http://localhost:8088/tutorial/main.jsp',
-//    featurePrefix: 'tutorial',
-//    featureTypes: ['AF01_BeaconOut'],
-//    outputFormat: 'application/json'
-//   // filter: ol.format.filter.and(
-//    //  like('major', '21110*'),
-//    //	equalToFilter('major', '21110')
-//    //)
-//  });
-//
-//  // then post the request and add the received features to a layer
-//  fetch('http://localhost:8080/geoserver/tutorial/wfs', {
-//    method: 'POST',
-//    body: new XMLSerializer().serializeToString(featureRequest)
-//  }).then(function(response) {
-//    return response.json();
-//  }).then(function(json) {
-//    var features = new GeoJSON().readFeatures(json);
-//    GeoserverWFSSource.addFeatures(features);
-//    map.getView().fit(vectorSource.getExtent());
-//  });
+ /* var GeoserverWFSSource = new ol.layer.Vector({
+    source: GeoserverWFSSource,
+    style: new ol.style.Style({
+      stroke: new ol.style.Stroke({
+        color: 'rgba(0, 0, 255, 1.0)',
+        width: 2
+      })
+    })
+  });
+//generate a GetFeature request
+  var featureRequest = new ol.format.WFS().writeGetFeature({
+    srsName: 'EPSG:5186',
+    featureNS: 'http://localhost:8088/tutorial/main.jsp',
+    featurePrefix: 'tutorial',
+    featureTypes: ['AF01_BeaconOut'],
+    outputFormat: 'application/json'
+   // filter: ol.format.filter.and(
+    //  like('major', '21110*'),
+    //	equalToFilter('major', '21110')
+    //)
+  });
+
+  // then post the request and add the received features to a layer
+  fetch('http://localhost:8080/geoserver/tutorial/wfs', {
+    method: 'POST',
+    body: new XMLSerializer().serializeToString(featureRequest)
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    var features = new GeoJSON().readFeatures(json);
+    GeoserverWFSSource.addFeatures(features);
+    map.getView().fit(vectorSource.getExtent());
+  });*/
   var wmsSource = new ol.source.TileWMS({
 		     url: 'http://localhost:8080/geoserver/tutorial/wms',
 		     params: {
@@ -234,25 +235,25 @@ function init(){
   //GEOSERVER WMS Layer
   var GeoserverWMSSource = new ol.layer.Tile({
 	  source: wmsSource
-//		  new ol.source.TileWMS({
-//	     url: 'http://localhost:8080/geoserver/tutorial/wms',
-//	     params: {
-//				VERSION : '1.1.1',
-//				LAYERS : 'tutorial:AF01_BeaconOut,tutorial:AF01_Path,tutorial:AF01_Base',
-//				//FORMAT: 'application/json;type=utfgrid',
-//				//LAYERS : 'tutorial:AF01_BeaconOut',
-//				//WIDTH : 478,
-//				//HEIGHT : 768,
-//				//STYLES : 'population_density',
-//				SRS : 'EPSG:5186',
-//				TILED : true
-//				,cql_filter : 'major>=21110;BEYOND(geom,point(37.576503 126.980450),587580,meters);include'
-//					//'major=21110 OR major>21111 OR major=1;type>15;type=1'   //'major>21110'//  'type=1''major>21110''type=4'
-//				
-//			},
-//			serverType : 'geoserver',
-//			crossOrigin: 'anonymous'
-//	  	})
+		/*  new ol.source.TileWMS({
+	     url: 'http://localhost:8080/geoserver/tutorial/wms',
+	     params: {
+				VERSION : '1.1.1',
+				LAYERS : 'tutorial:AF01_BeaconOut,tutorial:AF01_Path,tutorial:AF01_Base',
+				//FORMAT: 'application/json;type=utfgrid',
+				//LAYERS : 'tutorial:AF01_BeaconOut',
+				//WIDTH : 478,
+				//HEIGHT : 768,
+				//STYLES : 'population_density',
+				SRS : 'EPSG:5186',
+				TILED : true
+				,cql_filter : 'major>=21110;BEYOND(geom,point(37.576503 126.980450),587580,meters);include'
+					//'major=21110 OR major>21111 OR major=1;type>15;type=1'   //'major>21110'//  'type=1''major>21110''type=4'
+				
+			},
+			serverType : 'geoserver',
+			crossOrigin: 'anonymous'
+	  	})*/
   ,
 		    visible: true,
 		    title: 'GeoserverWMSSource'
@@ -287,14 +288,14 @@ function init(){
   // Vector Layers
   // Styling
   const fillStyle = new ol.style.Fill({
-    color: [40, 119, 243, 1]
+    color: [200, 200, 243, 0.5]
   })
   
 
   // Style for lines
   const stokeStyle = new ol.style.Stroke({
     color: [30, 30, 30, 1],
-    width: 2,
+    width: 0.5,
     //lineCap: 'square',
    // lineJoin: 'bevel',
    // lineDash: [3,6]
@@ -382,17 +383,7 @@ function init(){
     visible: false
   })
   
-  // Layer Group
-  const layerGroup = new ol.layer.Group({
-    layers:[
-      tileArcGISLayer, NOAAWMSLayer, tileDebugLayer, openstreetMapFragmentStatic,
-      EUCountriesGeoJSONVectorImage, EUCountriesKML, heatMapOnlineFBUsers,
-      SeoulAreaGeoJSON
-      , GeoserverWMSSource
-     // , GeoserverWFSSource
-    ]
-  })
-  map.addLayer(layerGroup);
+  
 
   // Layer Switcher Logic for Raster Tile Layers
   const tileRasterLayerElements = document.querySelectorAll('.sidebar > input[type=checkbox]');
@@ -451,14 +442,374 @@ function init(){
         overlayCoordinate.innerHTML = clickedCoordinate;
         overlayInfo.innerHTML = clickedFeatureName + clickedFeatureAdditionInfo + clickedCoordinate;
         
-      //}
+     // }
     },
     {
       layerFilter: function(layerCandidate){
-        return layerCandidate.get('title')  === 'SeoulAreaGeoJSON' 
+    	  //  console.log(layerCandidate);
+        return layerCandidate.get('title') === 'SeoulAreaGeoJSON' 
       }
     })
   })
+  
+//Select Interaction - For Styling Selected Points
+  const selectInteraction = new ol.interaction.Select({
+    condition: ol.events.condition.singleClick,
+//    layers: function(layer){
+//      return [layer.get('title') === 'AustrianCities', layer.get('title') === 'CentralEUCountriesGeoJSON',]
+//    },
+    style: new ol.style.Style({
+      image: new ol.style.Circle({
+        fill: new ol.style.Fill({
+          color: '#ffcc33'
+        }),
+        radius: 12,
+        stroke: new ol.style.Stroke({
+          color: [247, 26, 10, 1],
+          width: 3
+        })
+      })
+    })
+  })
+  map.addInteraction(selectInteraction);
+  
+  /*  const selectInteractionV2 = new ol.interaction.Select();
+  map.addInteraction(selectInteractionV2);
+  selectInteractionV2.on('select', function(e){ 
+    let selectedFeature = e.selected;   
+    if(selectedFeature.length > 0 && selectedFeature[0].getGeometry().getType() === 'Point'){
+      selectedFeature[0].setStyle(
+        new ol.style.Style({
+          image: new ol.style.Circle({
+            fill: new ol.style.Fill({
+              color: [247, 26, 10, 1]
+            }),
+            radius: 12,
+            stroke: new ol.style.Stroke({
+              color: [247, 26, 10, 1],
+              width: 3
+            })
+          })
+        })
+      )
+    };
+  })*/
+  
+//Map Controls
+  const scaleLineControl = new ol.control.ScaleLine({
+//    units: 'metric',
+//    minWidth: 200,
+//    bar: true,
+//    steps: 4,
+//    text: true
+  })
+  map.addControl(scaleLineControl);
+
+  const overViewMapControl = new ol.control.OverviewMap({
+    tipLabel: 'Custom Overview Map',
+    layers: [
+      new ol.layer.Tile({
+        source: new ol.source.OSM()
+      })
+    ]
+  })
+
+  map.addControl(overViewMapControl);
+  
+  //
+  var source = new ol.source.Vector();
+
+  const vector = new ol.layer.Vector({
+    source: source,
+    style: new ol.style.Style({
+      fill: new ol.style.Fill({
+        color: 'rgba(255, 255, 255, 0.2)'
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#ffcc33',
+        width: 2
+      }),
+      image: new ol.style.Circle({
+        radius: 7,
+        fill: new ol.style.Fill({
+          color: '#ffcc33'
+        })
+      })
+    })
+  });
+  /**
+   * Currently drawn feature.
+   * @type {import("../src/ol/Feature.js").default}
+   */
+  var sketch;
+
+
+  /**
+   * The help tooltip element.
+   * @type {HTMLElement}
+   */
+  var helpTooltipElement;
+
+
+  /**
+   * Overlay to show the help messages.
+   * @type {Overlay}
+   */
+  var helpTooltip;
+
+
+  /**
+   * The measure tooltip element.
+   * @type {HTMLElement}
+   */
+  var measureTooltipElement;
+
+
+  /**
+   * Overlay to show the measurement.
+   * @type {Overlay}
+   */
+  var measureTooltip;
+
+
+  /**
+   * Message to show when the user is drawing a polygon.
+   * @type {string}
+   */
+  var continuePolygonMsg = 'Click to continue drawing the polygon';
+
+
+  /**
+   * Message to show when the user is drawing a line.
+   * @type {string}
+   */
+  var continueLineMsg = 'Click to continue drawing the line';
+
+
+  /**
+   * Handle pointer move.
+   * @param {import("../src/ol/MapBrowserEvent").default} evt The event.
+   */
+  var pointerMoveHandler = function(evt) {
+    if (evt.dragging) {
+      return;
+    }
+    /** @type {string} */
+    var helpMsg = 'Click';
+
+    if (sketch) {
+      var geom = sketch.getGeometry();
+      if (geom instanceof ol.geom.Polygon) {
+        helpMsg = continuePolygonMsg;
+      } else if (geom instanceof ol.geom.LineString) {
+        helpMsg = continueLineMsg;
+      }
+    }
+
+    helpTooltipElement.innerHTML = helpMsg;
+    helpTooltip.setPosition(evt.coordinate);
+
+    helpTooltipElement.classList.remove('hidden');
+  };
+
+
+  
+
+  map.on('pointermove', pointerMoveHandler);
+
+  map.getViewport().addEventListener('mouseout', function() {
+    helpTooltipElement.classList.add('hidden');
+  });
+
+  var typeSelect = document.getElementById('type');
+
+  var draw; // global so we can remove it later
+
+
+  /**
+   * Format length output.
+   * @param {LineString} line The line.
+   * @return {string} The formatted length.
+   */
+  var formatLength = function(line) {
+    var length = ol.sphere.getLength(line);
+    var output;
+    if (length > 100) {
+      output = (Math.round(length / 1000 * 100) / 100) +
+          ' ' + 'km';
+    } else {
+      output = (Math.round(length * 100) / 100) +
+          ' ' + 'm';
+    }
+    return output;
+  };
+
+
+  /**
+   * Format area output.
+   * @param {Polygon} polygon The polygon.
+   * @return {string} Formatted area.
+   */
+  var formatArea = function(polygon) {
+    var area = ol.sphere.getArea(polygon);
+    var output;
+    if (area > 10000) {
+      output = (Math.round(area / 1000000 * 100) / 100) +
+          ' ' + 'km<sup>2</sup>';
+    } else {
+      output = (Math.round(area * 100) / 100) +
+          ' ' + 'm<sup>2</sup>';
+    }
+    return output;
+  };
+
+  function addInteraction() {
+	var type = typeSelect.value;//(typeSelect.value == 'area' ? 'Polygon' : 'LineString');
+	if (type !== 'None'){
+    draw = new ol.interaction.Draw({
+      source: source,
+      type: type,
+      style: new ol.style.Style({
+        fill: new ol.style.Fill({
+          color: 'rgba(255, 255, 255, 0.2)'
+        }),
+        stroke: new ol.style.Stroke({
+          color: 'rgba(0, 0, 0, 0.5)',
+          lineDash: [10, 10],
+          width: 2
+        }),
+        image: new ol.style.Circle({
+          radius: 5,
+          stroke: new ol.style.Stroke({
+            color: 'rgba(0, 0, 0, 0.7)'
+          }),
+          fill: new ol.style.Fill({
+            color: 'rgba(255, 255, 255, 0.2)'
+          })
+        })
+      })
+    });
+    map.addInteraction(draw);
+    
+
+    createMeasureTooltip();
+    createHelpTooltip();
+
+    var listener;
+    draw.on('drawstart',
+      function(evt) {
+        // set sketch
+        sketch = evt.feature;
+
+        /** @type {import("../src/ol/coordinate.js").Coordinate|undefined} */
+        var tooltipCoord = evt.coordinate;
+
+        listener = sketch.getGeometry().on('change', function(evt) {
+          var geom = evt.target;
+          var output;
+          if (geom instanceof ol.geom.Polygon) {
+            output = formatArea(geom);
+            tooltipCoord = geom.getInteriorPoint().getCoordinates();
+          } else if (geom instanceof ol.geom.LineString) {
+            output = formatLength(geom);
+            tooltipCoord = geom.getLastCoordinate();
+          }
+          measureTooltipElement.innerHTML = output;
+          measureTooltip.setPosition(tooltipCoord);
+        });
+      });
+
+    draw.on('drawend',
+      function() {
+        measureTooltipElement.className = 'ol-tooltip ol-tooltip-static';
+        measureTooltip.setOffset([0, -7]);
+        // unset sketch
+        sketch = null;
+        // unset tooltip so that a new one can be created
+        measureTooltipElement = null;
+        createMeasureTooltip();
+        ol.Observable.unByKey(listener);
+      });
+  	}
+  }
+
+
+
+  /**
+   * Creates a new help tooltip
+   */
+  function createHelpTooltip() {
+    if (helpTooltipElement) {
+      helpTooltipElement.parentNode.removeChild(helpTooltipElement);
+    }
+    helpTooltipElement = document.createElement('div');
+    helpTooltipElement.className = 'ol-tooltip hidden';
+    helpTooltip = new ol.Overlay({
+      element: helpTooltipElement,
+      offset: [15, 0],
+      positioning: 'center-left'
+    });
+    map.addOverlay(helpTooltip);
+  }
+
+
+  /**
+   * Creates a new measure tooltip
+   */
+  function createMeasureTooltip() {
+    if (measureTooltipElement) {
+      measureTooltipElement.parentNode.removeChild(measureTooltipElement);
+    }
+    measureTooltipElement = document.createElement('div');
+    measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
+    measureTooltip = new ol.Overlay({
+      element: measureTooltipElement,
+      offset: [0, -15],
+      positioning: 'bottom-center'
+    });
+    map.addOverlay(measureTooltip);
+  }
+
+
+  /**
+   * Let user change the geometry type.
+   */
+  typeSelect.onchange = function() {
+    map.removeInteraction(draw);
+    addInteraction();
+  };
+
+  addInteraction();
+  
+//Layer Group
+  const layerGroup = new ol.layer.Group({
+    layers:[
+      tileArcGISLayer, NOAAWMSLayer, tileDebugLayer, openstreetMapFragmentStatic,
+      EUCountriesGeoJSONVectorImage, EUCountriesKML, heatMapOnlineFBUsers,
+      SeoulAreaGeoJSON
+      , GeoserverWMSSource, vector
+     // , GeoserverWFSSource
+    ]
+  })
+  map.addLayer(layerGroup);
+  
+  
+  //Control
+/*	var ctrl = new ol.control.Scale({
+		
+	});
+	map.addControl(ctrl);
+	map.addControl(new ol.control.ScaleLine());
+  
+  function setDiagonal(val) {
+      var res = Math.sqrt(window.screen.width*window.screen.width+window.screen.height*window.screen.height)/val; 
+      res = Math.round(res);
+      $('#ppi').val(res);
+      ctrl.set('ppi', res); 
+      ctrl.setScale()
+    }*/
+
+
 }
 
 
