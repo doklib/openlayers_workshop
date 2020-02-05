@@ -213,30 +213,84 @@ function init(){
     GeoserverWFSSource.addFeatures(features);
     map.getView().fit(vectorSource.getExtent());
   });*/
-  var wmsSource = new ol.source.TileWMS({
-		     url: 'http://localhost:8080/geoserver/tutorial/wms',
-		     params: {
-					VERSION : '1.1.1',
-					LAYERS : 'tutorial:AF01_BeaconOut,tutorial:AF01_Path,tutorial:AF01_Base',
-					//FORMAT: 'application/json;type=utfgrid',
-					//LAYERS : 'tutorial:AF01_BeaconOut',
-					//WIDTH : 478,
-					//HEIGHT : 768,
-					//STYLES : 'population_density',
-					SRS : 'EPSG:5186',
-					TILED : true
-					,cql_filter : 'major>=21110;BEYOND(geom,point(37.576503 126.980450),587580,meters);include'
-						//'major=21110 OR major>21111 OR major=1;type>15;type=1'   //'major>21110'//  'type=1''major>21110''type=4'
-					
-				},
-				serverType : 'geoserver',
-				crossOrigin: 'anonymous'
-		  	});
+ 
+  var sld = '<?xml version="1.0" encoding="ISO-8859-1"?>';
+  sld += '<StyledLayerDescriptor version="1.0.0"'; 
+  sld += '    xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd" ';
+  sld += '    xmlns="http://www.opengis.net/sld" ';
+  sld += '    xmlns:ogc="http://www.opengis.net/ogc" ';
+  sld += '    xmlns:xlink="http://www.w3.org/1999/xlink" ';
+  sld += '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
+  sld += '  <NamedLayer>';
+  sld += '    <Name>Attribute-based polygon</Name>';
+  sld += '    <UserStyle>';
+  sld += '      <Title>SLD Cook Book: Attribute-based polygon</Title>';
+  sld += '      <FeatureTypeStyle>';
+  sld += '        <Rule>';
+  sld += '          <Name>SmallPop</Name>';
+  sld += '          <Title>Less Than 200,000</Title>';
+  sld += '          <ogc:Filter>';
+  sld += '            <ogc:PropertyIsLessThan>';
+  sld += '              <ogc:PropertyName>pop</ogc:PropertyName>';
+  sld += '              <ogc:Literal>200000</ogc:Literal>';
+  sld += '            </ogc:PropertyIsLessThan>';
+  sld += '          </ogc:Filter>';
+  sld += '          <PolygonSymbolizer>';
+  sld += '            <Fill>';
+  sld += '              <CssParameter name="fill">#66FF66</CssParameter>';
+  sld += '            </Fill>';
+  sld += '          </PolygonSymbolizer>';
+  sld += '        </Rule>';
+  sld += '        <Rule>';
+  sld += '          <Name>MediumPop</Name>';
+  sld += '          <Title>200,000 to 500,000</Title>';
+  sld += '          <ogc:Filter>';
+  sld += '            <ogc:And>';
+  sld += '              <ogc:PropertyIsGreaterThanOrEqualTo>';
+  sld += '                <ogc:PropertyName>pop</ogc:PropertyName>';
+  sld += '                <ogc:Literal>200000</ogc:Literal>';
+  sld += '              </ogc:PropertyIsGreaterThanOrEqualTo>';
+  sld += '              <ogc:PropertyIsLessThan>';
+  sld += '                <ogc:PropertyName>pop</ogc:PropertyName>';
+  sld += '                <ogc:Literal>500000</ogc:Literal>';
+  sld += '              </ogc:PropertyIsLessThan>';
+  sld += '            </ogc:And>';
+  sld += '          </ogc:Filter>';
+  sld += '          <PolygonSymbolizer>';
+  sld += '            <Fill>';
+  sld += '              <CssParameter name="fill">#33CC33</CssParameter>';
+  sld += '            </Fill>';
+  sld += '          </PolygonSymbolizer>';
+  sld += '        </Rule>';
+  sld += '        <Rule>';
+  sld += '          <Name>LargePop</Name>';
+  sld += '          <Title>Greater Than 500,000</Title>';
+  sld += '          <ogc:Filter>';
+  sld += '            <ogc:PropertyIsGreaterThan>';
+  sld += '              <ogc:PropertyName>pop</ogc:PropertyName>';
+  sld += '              <ogc:Literal>500000</ogc:Literal>';
+  sld += '            </ogc:PropertyIsGreaterThan>';
+  sld += '          </ogc:Filter>';
+  sld += '          <PolygonSymbolizer>';
+  sld += '            <Fill>';
+  sld += '              <CssParameter name="fill">#009900</CssParameter>';
+  sld += '            </Fill>';
+  sld += '          </PolygonSymbolizer>';
+  sld += '        </Rule>';
+  sld += '      </FeatureTypeStyle>';
+  sld += '    </UserStyle>';
+  sld += '  </NamedLayer>';
+  sld += '</StyledLayerDescriptor>';
+  var newSLD = '<?xml version="1.0" encoding="UTF-8"?> <StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd" xmlns:se="http://www.opengis.net/se"> <NamedLayer>     <se:Name>d2:d2_sk</se:Name>     <UserStyle>       <se:Name>mujstyl</se:Name>       <se:FeatureTypeStyle>         <se:Rule>           <se:Name>Perfektní</se:Name>           <se:Description>             <se:Title>Perfektní</se:Title>           </se:Description>           <ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">             <ogc:PropertyIsEqualTo>               <ogc:PropertyName>stav_' + '</ogc:PropertyName>               <ogc:Literal>1</ogc:Literal>             </ogc:PropertyIsEqualTo>           </ogc:Filter>           <se:LineSymbolizer>             <se:Stroke>               <se:SvgParameter name="stroke">#00c10e</se:SvgParameter>               <se:SvgParameter name="stroke-width">1</se:SvgParameter>               <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>               <se:SvgParameter name="stroke-linecap">square</se:SvgParameter>             </se:Stroke>           </se:LineSymbolizer>         </se:Rule>         <se:Rule>           <se:Name>Dobrý</se:Name>           <se:Description>             <se:Title>Dobrý</se:Title>           </se:Description>           <ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">             <ogc:PropertyIsEqualTo>               <ogc:PropertyName>stav_'  + '</ogc:PropertyName>               <ogc:Literal>2</ogc:Literal>             </ogc:PropertyIsEqualTo>           </ogc:Filter>           <se:LineSymbolizer>             <se:Stroke>               <se:SvgParameter name="stroke">#ffc813</se:SvgParameter>               <se:SvgParameter name="stroke-width">1</se:SvgParameter>               <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>               <se:SvgParameter name="stroke-linecap">square</se:SvgParameter>             </se:Stroke>           </se:LineSymbolizer>         </se:Rule>         <se:Rule>           <se:Name>Špatný</se:Name>           <se:Description>             <se:Title>Špatný</se:Title>           </se:Description>           <ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">             <ogc:PropertyIsEqualTo>               <ogc:PropertyName>stav_' + '</ogc:PropertyName>               <ogc:Literal>3</ogc:Literal>             </ogc:PropertyIsEqualTo>           </ogc:Filter>           <se:LineSymbolizer>             <se:Stroke>               <se:SvgParameter name="stroke">#ff6613</se:SvgParameter>               <se:SvgParameter name="stroke-width">1</se:SvgParameter>               <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>               <se:SvgParameter name="stroke-linecap">square</se:SvgParameter>             </se:Stroke>           </se:LineSymbolizer>         </se:Rule>         <se:Rule>           <se:Name>Nejhorší</se:Name>           <se:Description>             <se:Title>Nejhorší</se:Title>           </se:Description>           <ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">             <ogc:PropertyIsEqualTo>               <ogc:PropertyName>stav_' + '</ogc:PropertyName>               <ogc:Literal>4</ogc:Literal>             </ogc:PropertyIsEqualTo>           </ogc:Filter>           <se:LineSymbolizer>             <se:Stroke>               <se:SvgParameter name="stroke">#ef0000</se:SvgParameter>               <se:SvgParameter name="stroke-width">1</se:SvgParameter>               <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>               <se:SvgParameter name="stroke-linecap">square</se:SvgParameter>             </se:Stroke>           </se:LineSymbolizer>         </se:Rule>       </se:FeatureTypeStyle>     </UserStyle>   </NamedLayer> </StyledLayerDescriptor>';
+
+  
+  
   //GEOSERVER WMS Layer
   var GeoserverWMSSource = new ol.layer.Tile({
-	  source: wmsSource
-		/*  new ol.source.TileWMS({
-	     url: 'http://localhost:8080/geoserver/tutorial/wms',
+	  source: //wmsSource
+		  new ol.source.TileWMS({
+	     url: '/map/proxy.do',
+	     // 'http://localhost:8080/geoserver/tutorial/wms',
 	     params: {
 				VERSION : '1.1.1',
 				LAYERS : 'tutorial:AF01_BeaconOut,tutorial:AF01_Path,tutorial:AF01_Base',
@@ -253,11 +307,12 @@ function init(){
 			},
 			serverType : 'geoserver',
 			crossOrigin: 'anonymous'
-	  	})*/
+	  	})
   ,
 		    visible: true,
 		    title: 'GeoserverWMSSource'
 	});
+  var wmsSource = GeoserverWMSSource.getSource();
   
   // NOAA WMS Layer
   const NOAAWMSLayer = new ol.layer.Tile({
@@ -277,7 +332,7 @@ function init(){
   // Static Image OpenstreetMap
   const openstreetMapFragmentStatic = new ol.layer.Image({
     source: new ol.source.ImageStatic({
-      url: './data/static_images/openlayers_static_humanitarian.PNG',
+      url: 'resources/static_images/openlayers_static_humanitarian.PNG',
       imageExtent: [4991698.9328313675, 5050292.393744084, 10008191.828130603, 10013417.911357462],
       attributions: '<a href=https://www.openstreetmap.org/copyright/>© OpenStreetMap contributors<a/>',
     }),
@@ -323,7 +378,7 @@ function init(){
 
   // Icon Marker Style
   const iconMarkerStyle = new ol.style.Icon({
-    src: './data/static_images/marker.png',
+    src: 'resources/data/static_images/marker.png',
     size: [100, 100],
     offset:[0, 0],
     opacity: 1,
@@ -334,7 +389,7 @@ function init(){
   //seoul
   const SeoulAreaGeoJSON = new ol.layer.VectorImage({
       source: new ol.source.Vector({
-          url: './data/vector_data/area.geojson',
+          url: 'resources/data/vector_data/area.geojson',
           format: new ol.format.GeoJSON()
       }),
       visibile: true,
@@ -348,7 +403,7 @@ function init(){
   // Central EU Countries GeoJSON VectorImage Layer
   const EUCountriesGeoJSONVectorImage = new ol.layer.VectorImage({
     source: new ol.source.Vector({
-      url: './data/vector_data/Central_EU_countries_GEOJSON.geojson',
+      url: 'resources/vector_data/Central_EU_countries_GEOJSON.geojson',
       format: new ol.format.GeoJSON()
     }),
     visible: false,
